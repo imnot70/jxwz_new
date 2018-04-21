@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan
+		base-package="com.jxwz.*" />
+	<!-- 让spring 去读取指定路径下的资源文件 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations"
+			value="classpath:config/config.properties" />
+	</bean>
+
+	<!-- 配置c3p0连接池 -->
+	<bean id="c3p0Source"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${url}" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${password}" />
+		<property name="initialPoolSize" value="${initialPoolSize}" />
+		<property name="minPoolSize" value="${minPoolSize}" />
+		<property name="maxPoolSize" value="${maxPoolSize}" />
+		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>
+	</bean>
+
+	<!-- 配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="c3p0Source" />
+		<property name="mappingResources">
+			<list>
+				<value>/com/jxwz/entity/User.hbm.xml</value>
+				<value>/com/jxwz/entity/Chapter.hbm.xml</value>
+				<value>/com/jxwz/entity/Section.hbm.xml</value>
+				<value>/com/jxwz/entity/Document.hbm.xml</value>
+				<value>/com/jxwz/entity/HomeWorkTeacher.hbm.xml</value>
+				<value>/com/jxwz/entity/HomeWorkTeacherItem.hbm.xml</value>
+				<value>/com/jxwz/entity/Question.hbm.xml</value>
+				<value>/com/jxwz/entity/Option.hbm.xml</value>
+				<value>/com/jxwz/entity/Post.hbm.xml</value>
+				<value>/com/jxwz/entity/PostReply.hbm.xml</value>
+				<value>/com/jxwz/entity/Words.hbm.xml</value>
+				<value>/com/jxwz/entity/WordsReply.hbm.xml</value>
+				<value>/com/jxwz/entity/Announcement.hbm.xml</value>
+				<value>/com/jxwz/entity/Video.hbm.xml</value>
+				<value>/com/jxwz/entity/Note.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" /> 
+	</bean>
+
+	<!-- 定义事务通知 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager"> 
+		<tx:attributes> 
+			<tx:method name="get*" read-only="true"/> 
+			<tx:method name="*" read-only="true"/> 
+			<tx:method name="save*" read-only="false" propagation="REQUIRED"/> 
+			<tx:method name="del*" read-only="false" propagation="REQUIRED"/>
+			<tx:method name="insert*" read-only="false" propagation="REQUIRED"/>
+		</tx:attributes> 
+	</tx:advice>
+
+	<!-- 定义事务切面，并应用事务通知 -->
+	<aop:config proxy-target-class="true">
+	    <aop:pointcut expression="execution(* com.jxwz.service.*.*(..))" id="ServicePointcut" />
+	    <aop:advisor advice-ref="txAdvice" pointcut-ref="ServicePointcut" />
+	</aop:config> 
+	<!-- <aop:config> <aop:pointcut id="xxxBizImpl" expression="execution(* 
+		com.cdzg.spring.biz.*.*(..))"/> <aop:advisor pointcut-ref="xxxBizImpl" advice-ref="txAdvice"/> 
+		</aop:config> -->
+
+	<!-- <bean id="userDaoImpl" class="com.cdzg.spring.dao.impl.UserDaoImpl"> 
+		<property name="sessionFactory" ref="sessionFactory" /> </bean> <bean id="userBizImpl" 
+		class="com.cdzg.spring.biz.impl.UserBizImpl"> <property name="userDao" ref="userDaoImpl" 
+		/> </bean> <bean id="userAction" class="com.cdzg.spring.web.actions.UserAction"> 
+		<property name="userBiz" ref="userBizImpl" /> </bean> -->
+
+</beans>

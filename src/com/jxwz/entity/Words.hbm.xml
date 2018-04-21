@@ -1,0 +1,27 @@
+<?xml version="1.0"?>    
+<!DOCTYPE hibernate-mapping PUBLIC     
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"    
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">    
+        
+<!--     
+    <hibernate-mapping>一般不去配置，采用默认即可。    
+    default-cascade="none"：默认的级联风格，表与表联动。    
+    default-lazy="true"：默认延迟加载    
+ -->    
+<hibernate-mapping>    
+    
+    <class name="com.jxwz.entity.Words" table="t_words" dynamic-insert="true" dynamic-update="true" optimistic-lock="version">    
+        <id name="id" column="id">    
+            <generator class="native"/>    
+        </id>    
+        <property name="createTime" column="create_time" />    
+        <property name="status" column="status"/>  
+        <property name="createDateStr" column="create_date_str"/>  
+        
+        <property name="title" column="title"/>    
+        <property name="content" column="content"/>    
+        <property name="attachmentUrl" column="attachment_url"/>    
+        <many-to-one name="teacher" column="teacher_id" class="com.jxwz.entity.User" cascade="all"></many-to-one>
+        <many-to-one name="student" column="student_id" class="com.jxwz.entity.User" cascade="all"></many-to-one>
+    </class>    
+</hibernate-mapping>    
