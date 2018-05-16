@@ -21,7 +21,7 @@
         <property name="subTitle" column="sub_title"/>    
         <property name="author" column="author"/>    
         <property name="docUrl" column="doc_url"/>    
-        <many-to-one name="section" class="com.jxwz.entity.Section" column="section_id" cascade="none"/>
+        <!-- <many-to-one name="section" class="com.jxwz.entity.Section" column="section_id" cascade="none"/> -->
         <many-to-one name="teacher" class="com.jxwz.entity.User" column="teacher_id" cascade="none"/>
     </class>    
 </hibernate-mapping>    

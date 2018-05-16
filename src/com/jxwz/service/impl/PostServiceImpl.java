@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jxwz.dao.PostDao;
 import com.jxwz.entity.Post;
+import com.jxwz.entity.PostReply;
 import com.jxwz.service.PostService;
 
 @Service
@@ -33,6 +34,22 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post findById(Long id) {
 		return postDao.findById(id);
+	}
+
+	@Override
+	public List<PostReply> getReplysByPostId(Long postId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Post> getPostWithPage(int startNum, int pageSize) {
+		return postDao.getPostWithPage(startNum,pageSize);
+	}
+
+	@Override
+	public int queryCount() {
+		return postDao.queryCount();
 	}
 
 }

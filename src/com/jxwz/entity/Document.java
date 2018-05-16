@@ -6,7 +6,7 @@ public class Document extends BaseEntity {
 	private String subTitle;
 	private String author;
 	private String docUrl;
-	private Section section;
+//	private Section section;
 	private User teacher;	// 上传教师
 
 	public String getTitle() {
@@ -41,13 +41,13 @@ public class Document extends BaseEntity {
 		this.docUrl = docUrl;
 	}
 
-	public Section getSection() {
-		return section;
-	}
-
-	public void setSection(Section section) {
-		this.section = section;
-	}
+//	public Section getSection() {
+//		return section;
+//	}
+//
+//	public void setSection(Section section) {
+//		this.section = section;
+//	}
 
 	public User getTeacher() {
 		return teacher;

@@ -1,39 +1,44 @@
 package com.jxwz.action;
 
-public class TeacherAction extends BaseAction{
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.jxwz.entity.User;
+import com.jxwz.service.UserService;
+
+public class TeacherAction extends BaseAction {
 
 	private static final long serialVersionUID = -7414843094579245768L;
-	// 跳转至添加作业页面
-	public String toAddHomeWork() {
-		return "";
-	}
 
-	// 添加作业
-	public void addHomeWork() {
-		
-	}
+	@Autowired
+	private UserService userService;
 	
-	// 批改作业
-	public void checkHomeWork() {
-		
-	}
-	
+	private User teacher;
+
 	// 修改个人信息
 	public String modifyInfo() {
-		return "";
+		userService.saveOrUpdate(teacher);
+		return SUCCESS;
 	}
-	
+
 	// 回复留言
 	public void replay() {
 		
 	}
-	
+
 	public void uploadVideo() {
-		
+
 	}
-	
+
 	public void uploadDoc() {
-		
+
 	}
-	
+
+	public User getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
+	}
+
 }

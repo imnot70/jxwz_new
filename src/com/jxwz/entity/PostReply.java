@@ -1,16 +1,22 @@
 package com.jxwz.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class PostReply extends BaseEntity {
 
+	private int floorNum;
 	private Post post;
 	private User user;
 	private String content;
 	private String attachmentUrl;
 	private PostReply reply;
-	private Set<PostReply> replys = new HashSet<PostReply>();
+//	private List<PostReply> replys;
+
+	public int getFloorNum() {
+		return floorNum;
+	}
+
+	public void setFloorNum(int floorNum) {
+		this.floorNum = floorNum;
+	}
 
 	public Post getPost() {
 		return post;
@@ -52,12 +58,12 @@ public class PostReply extends BaseEntity {
 		this.reply = reply;
 	}
 
-	public Set<PostReply> getReplys() {
-		return replys;
-	}
-
-	public void setReplys(Set<PostReply> replys) {
-		this.replys = replys;
-	}
+//	public List<PostReply> getReplys() {
+//		return replys;
+//	}
+//
+//	public void setReplys(List<PostReply> replys) {
+//		this.replys = replys;
+//	}
 
 }

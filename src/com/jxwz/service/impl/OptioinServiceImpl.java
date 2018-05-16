@@ -34,4 +34,9 @@ public class OptioinServiceImpl implements OptionService {
 		return optionDao.findById(id);
 	}
 
+	@Override
+	public List<Option> findByQueId(Long id) {
+		return optionDao.findByQueId(id);
+	}
+
 }

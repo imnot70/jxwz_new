@@ -7,8 +7,7 @@
 
 	<package name="user" namespace="/" extends="struts-default">
 		<action name="user_*" class="com.jxwz.action.UserAction" method="{1}">
-			<result name="allTeacher">NewFile.jsp</result>
-			<result name="allStudent">NewFile.jsp</result>
+			<result name="userHome">/WEB-INF/frontPage/User/user_home.jsp</result>
 		</action>
 	</package>
 

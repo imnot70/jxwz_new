@@ -23,7 +23,7 @@
         <property name="sort" column="sort"/>    
         <property name="remark" column="remark"/>    
         <!-- <many-to-one name="section" column="section_id" class="com.jxwz.entity.Section" cascade="all"></many-to-one> -->
-        <list name="sections" cascade="all" inverse="false" lazy="false">
+        <list name="sections" cascade="none" lazy="false">
         	<key column="chpater_id"/>
         	<list-index column="sort" base="1"/>
         	<one-to-many class="com.jxwz.entity.Section"/>

@@ -1,143 +1,156 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/res/css/top_menu/htmleaf-demo.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/res/css/top_menu/bootsnav.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/res/js/top_menu/bootsnav.js"></script>
-<style type="text/css">
-.navbar-brand {
-	padding: 29px 15px;
-	height: auto;
-}
 
-nav.navbar.bootsnav {
-	border: none;
-	margin-bottom: 150px;
-}
-
-.navbar-nav {
-	float: left;
-}
-
-nav.navbar.bootsnav ul.nav>li>a {
-	color: #474747;
-	text-transform: uppercase;
-	padding: 30px;
-}
-
-nav.navbar.bootsnav ul.nav>li:hover {
-	background: #f4f4f4;
-}
-
-.nav>li:after {
-	content: "";
-	width: 0;
-	height: 5px;
-	background: #34c9dd;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	transition: all 0.5s ease 0s;
-}
-
-.nav>li:hover:after {
-	width: 100%;
-}
-
-nav.navbar.bootsnav ul.nav>li.dropdown>a.dropdown-toggle:after {
-	content: "+";
-	font-family: 'FontAwesome';
-	font-size: 16px;
-	font-weight: 500;
-	position: absolute;
-	top: 35%;
-	right: 10%;
-	transition: all 0.4s ease 0s;
-}
-
-nav.navbar.bootsnav ul.nav>li.dropdown.on>a.dropdown-toggle:after {
-	content: "\f105";
-	transform: rotate(90deg);
-}
-
-.dropdown-menu.multi-dropdown {
-	position: absolute;
-	left: -100% !important;
-}
-
-nav.navbar.bootsnav li.dropdown ul.dropdown-menu {
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-	border: none;
-}
-
-@media only screen and (max-width:990px) {
-	nav.navbar.bootsnav ul.nav>li.dropdown>a.dropdown-toggle:after, nav.navbar.bootsnav ul.nav>li.dropdown.on>a.dropdown-toggle:after
-		{
-		content: " ";
-	}
-	.dropdown-menu.multi-dropdown {
-		left: 0 !important;
-	}
-	nav.navbar.bootsnav ul.nav>li:hover {
-		background: transparent;
-	}
-	nav.navbar.bootsnav ul.nav>li>a {
-		margin: 0;
-	}
-}
-</style>
 </head>
 <body>
-	<div class="htmleaf-container">
-		<header class="htmleaf-header">
-			<h1>《编译原理》教程网站</h1>
-			<div class="htmleaf-links">
+	<div class="containBox-bg"></div>
+	<header class="navbar-wrapper">
+		<div class="navbar navbar-black navbar-fixed-top">
+			<div class="container cl">
+				<a class="logo navbar-logo hidden-xs" href="${pageContext.request.contextPath }/home_toHome.action">《编译原理》教程网站</a>
+				<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs JS-nav-toggle" href="javascript:;">&#xe667;</a>
+				<nav class="nav navbar-nav nav-collapse" role="navigation" id="Hui-navbar">
+					<ul class="cl">
+						<li id="know">
+							<a href="${pageContext.request.contextPath }/home_toHome.action" target="_self">教学资料</a>
+						</li>
+						<li id="video">
+							<a href="${pageContext.request.contextPath }/home_toVideoList.action" target="_self">教学视频</a>
+						</li>
+						<li id="test">
+							<a href="${pageContext.request.contextPath }/home_toTest.action" target="_self">在线测试</a>
+						</li>
+						<li id="discuz">
+							<a href="${pageContext.request.contextPath }/home_toDiscuz.action" target="_self">热烈讨论</a>
+						</li>
+						<c:if test="${user == null }">
+							<li id="login_li" onclick="show()">
+								<a href="#" >登录</a>
+							</li>
+						</c:if>
+						<c:if test="${user != null }">
+							<li id="login_li" id="center">
+								&nbsp;&nbsp;&nbsp;&nbsp;欢迎，${userName }
+								<a href="${pageContext.request.contextPath}/user_center.action">个人中心</a>
+								<a href="#" onclick="logout()">退出</a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
+				<nav class="navbar-userbar hidden-xs"></nav>
 			</div>
-		</header>
-		<div class="demo" style="padding: 2em 0;">
-	        <div class="container">
-	            <div class="row">
-	                <div class="col-md-12" style="height:30px;">
-	                    <nav class="navbar navbar-default navbar-mobile bootsnav">
-	                        <div class="navbar-header">
-	                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-	                                <i class="fa fa-bars"></i>
-	                            </button>
-	                        </div>
-	                        <div class="collapse navbar-collapse" id="navbar-menu">
-	                            <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
-	                                <!-- <li><a href="#">Home</a></li>
-	                                <li><a href="#">About Us</a></li> -->
-	                                <li class="dropdown">
-	                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">教学资源</a>
-	                                    <ul class="dropdown-menu">
-	                                        <li><a href="${pageContext.request.contextPath }/home_home.action">教学资料</a></li>
-	                                        <li><a href="${pageContext.request.contextPath }/home_toVideo.action">教学视频</a></li>
-	                                    </ul>
-	                                </li>
-	                                <li class="dropdown">
-	                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">问题解答</a>
-	                                    <ul class="dropdown-menu">
-	                                        <li><a href="${pageContext.request.contextPath }/home_toWords.action">学生留言</a></li>
-	                                        <li><a href="${pageContext.request.contextPath }/home_toDiscuz.action">发帖讨论</a></li>
-	                                    </ul>
-	                                </li>
-	                                <li><a href="${pageContext.request.contextPath }/home_toTest.action" target="main_page">在线测试</a></li>
-	                            </ul>
-	                        </div>
-	                    </nav>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-		
-	</div>
-	
+		</div>
+	</header>
 </body>
+
+<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">登陆</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row cl">
+					<label class="form-label col-xs-3">编&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+					<div class="formControls col-xs-8">
+						<input type="text" class="input-text" placeholder="点击输入" id="userCode">
+					</div>
+				</div>
+				<br/>
+				<div class="row cl">
+					<label class="form-label col-xs-3">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+					<div class="formControls col-xs-8">
+						<input type="text" class="input-text" placeholder="点击输入" id="pw">
+					</div>
+				</div>
+				<br/>
+				<div class="row clearfix">
+					<label class="form-label col-xs-3">身&nbsp;&nbsp;&nbsp;&nbsp;份：</label>
+					<div class="formControls col-xs-8">
+						<div class="row clearfix" style="margin-top:0">
+							<div class="col-xs-6">
+								<span class="select-box">
+									<select class="select" size="1" name="city" id="userType">
+										<option value="">点击选择</option>
+										<option value="0">管理员</option>
+										<option value="2">老&nbsp;&nbsp;师</option>
+										<option value="1">学&nbsp;&nbsp;生</option>
+									</select>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="login()">确定</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="clearData()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	function show(){
+		$("#modal-demo").modal("show")
+	}
+
+	function login(){
+		
+		var userCode = $("#userCode").val();
+		var pwd = $("#pw").val();
+		var type= $("#userType").val();
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath }/login_loginWithCode.action",
+			type:"post",
+			dataType:"json",
+			data:{
+				"userCode":userCode,
+				"password":pwd,
+				"userType":type
+			},
+			success:function(data){
+				if(data.success){
+					window.location.href="${pageContext.request.contextPath }/home_toHome.action";
+				}else{
+					alert("登录失败");
+				}
+			}
+		})
+	}
+	
+	function logout(){
+		var res = confirm("确定要退出吗？");
+		if(!res){
+			return ;
+		}
+		$.ajax({
+			url:"${pageContext.request.contextPath }/login_logout.action",
+			type:"post",
+			dataType:"json",
+			success:function(data){
+				localStorage.setItem("tableId","0");
+				alert("退出成功");
+				window.location.href="${pageContext.request.contextPath }/home_toHome.action";
+			}
+		})
+	}
+	
+	function clearData(){
+		$("#userCode").val("");
+		$("#pw").val("");
+		$("#userType").children().eq(0).prop("selected","selected");
+	}
+	
+</script>
+
+
 </html>

@@ -18,7 +18,7 @@
         <property name="createDateStr" column="create_date_str"/>  
         
         <property name="content" column="content"/>    
-        <many-to-one name="section" class="com.jxwz.entity.Section" column="section_id" cascade="none"/>
-        <many-to-one name="student" class="com.jxwz.entity.User" column="student_id" cascade="none"/>
+        <many-to-one name="section" class="com.jxwz.entity.Section" column="section_id" cascade="none" lazy="false"/>
+        <many-to-one name="student" class="com.jxwz.entity.User" column="student_id" cascade="none" lazy="false"/>
     </class>    
 </hibernate-mapping>    

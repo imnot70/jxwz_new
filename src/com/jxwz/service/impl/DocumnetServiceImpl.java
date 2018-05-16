@@ -35,4 +35,14 @@ public class DocumnetServiceImpl implements DocumentService {
 		return documentDao.findById(id);
 	}
 
+	@Override
+	public List<Document> getDocsWithPage(int startNum, int pageSize) {
+		return documentDao.getDocsWithPage(startNum,pageSize);
+	}
+
+	@Override
+	public int queryCount() {
+		return documentDao.queryCount();
+	}
+
 }

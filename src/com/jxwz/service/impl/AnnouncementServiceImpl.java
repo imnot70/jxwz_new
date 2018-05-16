@@ -35,4 +35,19 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 		return announcementDao.findById(id);
 	}
 
+	@Override
+	public List<Announcement> findLast() {
+		return announcementDao.findLast();
+	}
+
+	@Override
+	public List<Announcement> findWithPage(int startNum, int pageSize) {
+		return announcementDao.findWithPage(startNum, pageSize);
+	}
+
+	@Override
+	public int queryCount() {
+		return announcementDao.queryCount();
+	}
+
 }

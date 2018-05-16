@@ -19,7 +19,8 @@
         <property name="createDateStr" column="create_date_str"/>  
         
         <property name="content" column="content"/>    
-        <property name="code" column="code"/>    
-        <many-to-one name="question" column="question_id" class="com.jxwz.entity.Question" cascade="all"></many-to-one>
+        <property name="answerCode" column="answer_code"/>    
+        <property name="sort" column="sort"/>    
+        <many-to-one name="question" column="question_id" class="com.jxwz.entity.Question" cascade="all" lazy="false"></many-to-one>
     </class>    
 </hibernate-mapping>    

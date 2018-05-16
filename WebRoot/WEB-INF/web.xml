@@ -4,15 +4,15 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>jxwz_new</display-name>
-	<welcome-file-list>
+	<!-- <welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-
+	</welcome-file-list> -->
+	
 	<!-- spring监听器及配置文件 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -21,7 +21,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:config/applicationContext*.xml</param-value>
 	</context-param>
-
+	
 	<!-- Struts2配置 -->
 	<filter>
 		<filter-name>struts2</filter-name>

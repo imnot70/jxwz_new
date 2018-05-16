@@ -7,8 +7,9 @@
 	<package name="home" namespace="/" extends="struts-default">
 		<action name="home_*" class="com.jxwz.action.HomePageAction" method="{1}">
 			<result name="home">/WEB-INF/frontPage/HomePage/home.jsp</result>
+			<result name="toKonwledges">/WEB-INF/frontPage/HomePage/knows.jsp</result>
 			<result name="toTest">/WEB-INF/frontPage/Test/test_page.jsp</result>
-			<result name="toVideo">/WEB-INF/frontPage/Video/video_page.jsp</result>
+			<result name="videoList">/WEB-INF/frontPage/Video/video_page.jsp</result>
 			<result name="toWords">/WEB-INF/frontPage/Words/words_page.jsp</result>
 			<result name="toDiscuz">/WEB-INF/frontPage/Discuz/discuz_page.jsp</result>
 		</action>

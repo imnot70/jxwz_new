@@ -16,4 +16,16 @@ public interface UserService extends BaseService<User>{
 	List<User> findByType(int userType);
 	
 	User findByUserName(String userName,String password,int userType);
+
+	int checkUnique(String email, int userType);
+	
+	User findByEmailAndPw(String email,String password,int userType);
+	
+	User findByCode(String code,String pwd,int type);
+	
+	List<User> findByTypeWithPage(int type,int startNum,int pageSize);
+	
+	int countByType(int type);
+	
+	User findByCode(String code,int type);
 }

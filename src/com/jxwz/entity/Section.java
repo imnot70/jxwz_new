@@ -1,6 +1,6 @@
 package com.jxwz.entity;
 
-import java.util.List;
+import java.util.Set;
 
 public class Section extends BaseEntity {
 
@@ -9,7 +9,10 @@ public class Section extends BaseEntity {
 	private String subTitle;
 	private String remark;
 	private Chapter chapter;
-	private List<Document> documents;
+	// private List<Document> documents;
+	private Set<Video> videos;
+	private Set<Question> ques;
+	private Set<Knowledge> knows;
 
 	public int getSort() {
 		return sort;
@@ -51,12 +54,35 @@ public class Section extends BaseEntity {
 		this.chapter = chapter;
 	}
 
-	public List<Document> getDocuments() {
-		return documents;
+	public Set<Video> getVideos() {
+		return videos;
 	}
 
-	public void setDocuments(List<Document> documents) {
-		this.documents = documents;
+	public void setVideos(Set<Video> videos) {
+		this.videos = videos;
 	}
+
+	public Set<Question> getQues() {
+		return ques;
+	}
+
+	public void setQues(Set<Question> ques) {
+		this.ques = ques;
+	}
+
+	public Set<Knowledge> getKnows() {
+		return knows;
+	}
+
+	public void setKnows(Set<Knowledge> knows) {
+		this.knows = knows;
+	}
+
+	/*
+	 * public List<Document> getDocuments() { return documents; }
+	 * 
+	 * public void setDocuments(List<Document> documents) { this.documents =
+	 * documents; }
+	 */
 
 }

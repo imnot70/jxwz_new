@@ -2,6 +2,7 @@ package com.jxwz.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class Utils {
 	
@@ -23,6 +24,17 @@ public class Utils {
 	public static String formatCurrentDate() {
 		sdf = new SimpleDateFormat(COMMON_FORMAT);
 		return sdf.format(new Date());
+	}
+	
+	public static String createCode() {
+		String codeStr = "1234567890";
+		Random rand = new Random();
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<4;i++) {
+			int index = rand.nextInt(codeStr.length());
+			sb.append(codeStr.charAt(index));
+		}
+		return sb.toString();
 	}
 	
 //	public static void main(String[] args) {

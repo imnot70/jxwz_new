@@ -21,11 +21,24 @@
         <property name="subTitle" column="sub_title"/>    
         <property name="remark" column="remark"/>    
         <property name="sort" column="sort"/>    
-        <many-to-one name="chapter" class="com.jxwz.entity.Chapter" column="chpater_id" cascade="none"/>
-        <list name="documents" cascade="all" inverse="false" lazy="false">
+        <many-to-one name="chapter" class="com.jxwz.entity.Chapter" column="chpater_id" cascade="none" lazy="false"/>
+       <!--  <list name="documents" cascade="all" inverse="false" lazy="false">
         	<key column="id"/>
-        	<list-index column="cerate_time"></list-index>
+        	<list-index column="create_time"></list-index>
         	<one-to-many class="com.jxwz.entity.Document"/>
-        </list>
+        </list> -->
+        <set name="videos" cascade="all" inverse="false" lazy="false">
+        	<key column="id"/>
+        	<one-to-many class="com.jxwz.entity.Video"/>
+        </set>
+        <set name="ques" cascade="all" inverse="false" lazy="false">
+        	<key column="id"/>
+      		<one-to-many class="com.jxwz.entity.Question"/>
+        </set>
+        <set name="knows" lazy="false" >
+        	<key column="id"/>
+        	<one-to-many class="com.jxwz.entity.Knowledge"/>
+        </set>
+        
     </class>    
 </hibernate-mapping>    

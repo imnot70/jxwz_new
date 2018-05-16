@@ -4,7 +4,7 @@ public class Video extends BaseEntity {
 
 	private String name;
 	private String videoUrl;
-	private User teacher; // 上传教师
+//	private User teacher; // 上传教师
 	private Section section; // 所属小节
 
 	public String getName() {
@@ -23,13 +23,13 @@ public class Video extends BaseEntity {
 		this.videoUrl = videoUrl;
 	}
 
-	public User getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(User teacher) {
-		this.teacher = teacher;
-	}
+//	public User getTeacher() {
+//		return teacher;
+//	}
+//
+//	public void setTeacher(User teacher) {
+//		this.teacher = teacher;
+//	}
 
 	public Section getSection() {
 		return section;

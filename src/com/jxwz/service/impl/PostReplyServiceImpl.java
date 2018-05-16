@@ -34,4 +34,14 @@ public class PostReplyServiceImpl implements PostReplyService {
 		return postReplyDao.findById(id);
 	}
 
+	@Override
+	public List<PostReply> selectByPostId(Long postId, int startNum, int pageSize) {
+		return postReplyDao.selectByPostId(postId,startNum,pageSize);
+	}
+
+	@Override
+	public int findMaxFloorByPostId(Long postId) {
+		return postReplyDao.findMaxFloorByPostId(postId);
+	}
+
 }

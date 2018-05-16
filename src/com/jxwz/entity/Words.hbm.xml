@@ -21,7 +21,7 @@
         <property name="title" column="title"/>    
         <property name="content" column="content"/>    
         <property name="attachmentUrl" column="attachment_url"/>    
-        <many-to-one name="teacher" column="teacher_id" class="com.jxwz.entity.User" cascade="all"></many-to-one>
-        <many-to-one name="student" column="student_id" class="com.jxwz.entity.User" cascade="all"></many-to-one>
+        <many-to-one name="teacher" column="teacher_id" class="com.jxwz.entity.User" cascade="all" lazy="false"></many-to-one>
+        <many-to-one name="student" column="student_id" class="com.jxwz.entity.User" cascade="all" lazy="false"></many-to-one>
     </class>    
 </hibernate-mapping>    

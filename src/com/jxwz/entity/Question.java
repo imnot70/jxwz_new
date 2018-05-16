@@ -1,6 +1,6 @@
 package com.jxwz.entity;
 
-import java.util.List;
+import java.util.Set;
 
 public class Question extends BaseEntity {
 
@@ -9,7 +9,8 @@ public class Question extends BaseEntity {
 	private String answerCode;
 	private String remark;
 	private Section section;
-	private List<Option> options;
+	private Set<Option> options;
+	private Set<User> stus;
 
 	public String getContent() {
 		return content;
@@ -51,12 +52,20 @@ public class Question extends BaseEntity {
 		this.section = section;
 	}
 
-	public List<Option> getOptions() {
+	public Set<Option> getOptions() {
 		return options;
 	}
 
-	public void setOptions(List<Option> options) {
+	public void setOptions(Set<Option> options) {
 		this.options = options;
+	}
+
+	public Set<User> getStus() {
+		return stus;
+	}
+
+	public void setStus(Set<User> stus) {
+		this.stus = stus;
 	}
 
 }

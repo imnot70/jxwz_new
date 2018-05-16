@@ -22,7 +22,7 @@ public class ChapterServiceImpl implements ChapterService {
 
 	@Override
 	public List<Chapter> findAll() {
-		return chapterDao.findAll();
+		return chapterDao.findAllSortByCreateTime(1);
 	}
 
 	@Override

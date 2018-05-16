@@ -20,6 +20,6 @@
         
         <property name="content" column="content"/>    
         <property name="attachmentUrl" column="attachment_url"/>    
-        <many-to-one name="words" column="words_id" class="com.jxwz.entity.Words" cascade="all"></many-to-one>
+        <many-to-one name="words" column="words_id" class="com.jxwz.entity.Words" cascade="all" lazy="false"></many-to-one>
     </class>    
 </hibernate-mapping>    

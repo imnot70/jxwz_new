@@ -35,4 +35,14 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.findById(id);
 	}
 
+	@Override
+	public int queryCount() {
+		return videoDao.queryCount();
+	}
+
+	@Override
+	public List<Video> findWithPage(int startNum, int pageSize) {
+		return videoDao.findWithPage(startNum,pageSize);
+	}
+
 }

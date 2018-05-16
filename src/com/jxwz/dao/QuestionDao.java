@@ -11,6 +11,7 @@ import com.jxwz.entity.Question;
 @Repository
 public class QuestionDao extends BaseDao<Question> {
 	
+	@SuppressWarnings("unchecked")
 	public List<Question> findTest(Long sectionId){
 		DetachedCriteria criteria = super.getCriteria();
 		criteria.add(Restrictions.eq("section.id", sectionId));
