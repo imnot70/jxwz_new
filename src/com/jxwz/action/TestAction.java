@@ -100,37 +100,36 @@ public class TestAction extends BaseAction {
 	// 获取测试结果
 	public void getResult() {
 		JSONObject obj = new JSONObject();
-		if(resultStr == null || resultStr.length() == 0) {
+		if (resultStr == null || resultStr.length() == 0) {
 			logger.info("resultStr is null or length is 0,return");
 			obj.put("success", false);
 			executeAjax(obj);
-			return ;
+			return;
 		}
 		String[] strs = resultStr.split(",");
 		List<TestResult> resultList = new ArrayList<TestResult>();
-		for(int i=0;i<resultStr.length();i++) {
+		for (int i = 0; i < strs.length-1; i++) {
 			Long id = Long.valueOf(strs[i]);
 			i++;
 			String code = strs[i];
 			
 			Question q = questionService.findById(id);
-			if(q == null) {
+			if (q == null) {
 				continue;
 			}
-			if(!code.equals(q.getAnswerCode())) {
+			if (!code.equals(q.getAnswerCode())) {
 				TestResult tr = new TestResult();
 				tr.setCode(q.getAnswerCode());
 				tr.setQueId(q.getId());
 				tr.setRemark(q.getRemark());
 				resultList.add(tr);
 			}
-			
 		}
 		obj.put("result", resultList);
 		obj.put("success", true);
 		executeAjax(obj);
 	}
-	
+
 	public Long getChapterId() {
 		return chapterId;
 	}

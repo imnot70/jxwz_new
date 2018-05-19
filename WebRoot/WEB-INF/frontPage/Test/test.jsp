@@ -95,13 +95,15 @@ $("#submitBtn").bind("click",function(){
 		answer += inputs.eq(i).val();
 		answer += ",";
 		answer += $("input[name='"+"op"+i+"']:checked").val();
+		answer += ",";
 	}
-	
+	answer = answer.substring(0,answer.length-1);
 	getResule(answer);
 })
 
 
 function getResule(answer){
+	
 	$.ajax({
 		url:"${pageContext.request.contextPath}/test_getResult.action",
 		type:"post",

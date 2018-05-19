@@ -71,7 +71,7 @@
 								<label class="form-label col-xs-3">选择文件：</label>
 								<div class="formControls col-xs-8">
 									<span class="btn-upload form-group">
-										<input class="input-text upload-url" type="text" name="myfile"  readonly="" style="width:200px">
+										<input class="input-text upload-url" type="text" name="myfile"  readonly="readonly" style="width:200px">
 										<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
 										<input id="knowFileInput" type="file" name="myfile" class="input-file">
 									</span>
@@ -153,7 +153,10 @@
 		tr.append(td4);
 		var td5 = $("<td style='text-align:center;width:30%;'></td>");
 
-		var btn1 = createBtn("删除", "delKnow(this)", "btn btn-danger radius");
+		var btn2 = createBtn("预览", "check('"+obj.url+"')", "btn btn-primary radius");
+		td5.append(btn2);
+		
+		var btn1 = createBtn("删除", "delKnow("+obj.id+")", "btn btn-danger radius");
 		td5.append(btn1);
 		tr.append(td5);
 		return tr;
@@ -247,12 +250,34 @@
             		alert("上传成功");
             		window.location.reload();
             	}else{
-            		alert("上传失败");
+            		alert(data.msg);
             	}
             }
         });
     }
 	
+	function check(url){
+		window.open(url);
+	}
+	
+	function delKnow(id){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/doc_delKnow.action",
+			type:"post",
+			data:{
+				"knowId":id
+			},
+			dataType:"json",
+			success:function(data){
+				if(data.success){
+					alert("操作成功");
+					window.location.reload();
+				}else{
+					alert("操作失败");
+				}
+			}
+		})
+	}
 
 </script>
 </html>

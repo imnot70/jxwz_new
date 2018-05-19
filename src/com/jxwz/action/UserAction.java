@@ -1,6 +1,7 @@
 package com.jxwz.action;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,7 +81,19 @@ public class UserAction extends BaseAction {
 			int startNum = (pageNum - 1) * pageSize;
 
 			List<User> userList = userService.findByTypeWithPage(type, startNum, pageSize);
-			obj.put("users", userList);
+			List<User> resultList = new ArrayList<User>();
+			if(userList != null && userList.size() !=0) {
+				for(User temp:userList) {
+					User u = new User();
+					u.setName(temp.getName());
+					u.setId(temp.getId());
+					u.setGender(temp.getGender());
+					u.setUserCode(temp.getUserCode());
+					resultList.add(u);
+				}
+			}
+			
+			obj.put("users", resultList);
 			int totalCount = userService.countByType(type);
 			obj.put("totalCount", totalCount);
 			executeAjax(obj);
