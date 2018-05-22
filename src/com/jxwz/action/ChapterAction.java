@@ -30,19 +30,20 @@ public class ChapterAction extends BaseAction {
 		JSONObject obj = new JSONObject();
 		
 		try {
-			
-			Chapter c = chapterService.findById(chapter.getId());
-			if(c == null) {
-				obj.put("success",false);
-				executeAjax(obj);
-				return ;
+			if(chapter.getId() == null) {
+				chapterService.saveOrUpdate(chapter);
+			}else {
+				Chapter c = chapterService.findById(chapter.getId());
+				c.setTitle(chapter.getTitle());
+				c.setSubTitle(chapter.getSubTitle());
+				c.setSort(chapter.getSort());
+				c.setSections(chapter.getSections());
+				c.setRemark(chapter.getRemark());
+				chapterService.saveOrUpdate(c);
 			}
-			c.setTitle(chapter.getTitle());
-			c.setSubTitle(chapter.getSubTitle());
-			c.setSort(chapter.getSort());
-			chapterService.saveOrUpdate(c);
 		} catch (Exception e) {
 			obj.put("success", false);
+			executeAjax(obj);
 			e.printStackTrace();
 		}
 		
@@ -54,25 +55,22 @@ public class ChapterAction extends BaseAction {
 		logger.info("saveSec");
 		JSONObject obj = new JSONObject();
 		
-		
+		Chapter c = chapterService.findById(chaId);
 		try {
-			Section s = sectionService.findById(section.getId());
-			if(s == null) {
-				obj.put("success",false);
-				executeAjax(obj);
-				return ;
+			if(section.getId() == null) {
+				section.setChapter(c);
+				sectionService.saveOrUpdate(section);
+			}else {
+				Section s = sectionService.findById(section.getId());
+				s.setChapter(c);
+				s.setTitle(section.getTitle());
+				s.setSubTitle(section.getSubTitle());
+				s.setSort(section.getSort());
+				sectionService.saveOrUpdate(s);
 			}
-			
-			Chapter c = chapterService.findById(chaId);
-			section.setChapter(c);
-			
-			s.setTitle(section.getTitle());
-			s.setSubTitle(section.getSubTitle());
-			s.setSort(section.getSort());
-			
-			sectionService.saveOrUpdate(s);
 		} catch (Exception e) {
 			obj.put("success", false);
+			executeAjax(obj);
 			e.printStackTrace();
 		}
 		

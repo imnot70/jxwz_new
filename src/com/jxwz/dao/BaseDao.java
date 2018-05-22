@@ -91,4 +91,5 @@ public abstract class BaseDao<T> extends HibernateDaoSupport{
 		Number num = (Number)criteria.getExecutableCriteria(this.currentSession()).uniqueResult();
 		return num.intValue();
 	}
+	
 }

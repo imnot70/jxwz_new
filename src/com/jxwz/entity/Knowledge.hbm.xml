@@ -20,6 +20,5 @@
         <property name="title" column="title"/>    
         <property name="url" column="doc_url"/>    
         <many-to-one name="section" class="com.jxwz.entity.Section" column="section_id" cascade="none" lazy="false"/>
-        <!-- <many-to-one name="user" class="com.jxwz.entity.User" column="user_id" cascade="none" lazy="false"/> -->
     </class>    
 </hibernate-mapping>    

@@ -12,5 +12,9 @@ public interface PostService extends BaseService<Post> {
 	List<PostReply> getReplysByPostId(Long postId);
 
 	int queryCount();
+
+	int queryCountByUser(Long id);
+
+	List<Post> findByUser(Long userId, int startNum, int pageSize);
 	
 }

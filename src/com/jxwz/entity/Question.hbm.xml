@@ -23,6 +23,7 @@
         <property name="answerCode" column="answer_code"/>    
         <property name="remark" column="remark"/>    
         <many-to-one name="section" column="section_id" class="com.jxwz.entity.Section" cascade="all" lazy="false"></many-to-one>
+        <many-to-one name="teacher" column="teacher_id" class="com.jxwz.entity.User" cascade="none" lazy="false"></many-to-one>
         <set name="options" cascade="all" inverse="false" lazy="false" order-by="sort asc">
         	<key column="question_id"/>
         	<one-to-many class="com.jxwz.entity.Option"/>

@@ -2,9 +2,18 @@ package com.jxwz.entity;
 
 public class Note extends BaseEntity {
 
+	private String title;
 	private Section section;
 	private String content;
 	private User student;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public Section getSection() {
 		return section;

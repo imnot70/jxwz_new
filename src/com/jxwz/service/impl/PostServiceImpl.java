@@ -52,4 +52,14 @@ public class PostServiceImpl implements PostService {
 		return postDao.queryCount();
 	}
 
+	@Override
+	public int queryCountByUser(Long id) {
+		return postDao.queryCountByUser(id);
+	}
+
+	@Override
+	public List<Post> findByUser(Long userId, int startNum, int pageSize) {
+		return postDao.findByUser(userId,startNum,pageSize);
+	}
+
 }

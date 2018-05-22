@@ -66,7 +66,7 @@
 				<div class="row cl">
 					<label class="form-label col-xs-3">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
 					<div class="formControls col-xs-8">
-						<input type="text" class="input-text" placeholder="点击输入" id="pw">
+						<input type="password" class="input-text" placeholder="点击输入" id="pw">
 					</div>
 				</div>
 				<br/>
@@ -96,7 +96,75 @@
 	</div>
 </div>
 
+<div id="modal-demo-add-note" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title" style="text-align:center;">添加笔记</h3>
+			</div>
+			<div class="modal-body" style="min-height:500px;">
+				<div class="containBox">
+					<div class="wap-container">
+					<br/>
+						<div class="formControls">
+							<input id="note_theme" class="input-text" placeholder="笔记题目">
+						</div>
+					</div>
+					<br/>
+					<div>
+						<textarea id="note_content" rows="" cols="" style="min-height:400px;" class="textarea" placeholder="这里是笔记内容哦~"></textarea>
+					</div>
+					<input id="note_id_ipt" type="hidden"/>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" onclick="addNoteFinish()">确定</button>
+				<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
+
+	function addNote(id){
+		$("#note_id_ipt").val(id);
+		$("#modal-demo-add-note").modal("show");
+	}
+	
+	function addNoteFinish(){
+		var sectionId = $("#note_id_ipt").val();
+		var title = $("#note_theme").val();
+		var content = $("#note_content").val();
+		if(title == null || title == "" || typeof(title) == "undefined"){
+			alert("请填写标题");
+			return ;
+		}
+		if(content == null || content == "" || typeof(content) == "undefined"){
+			alert("请填写标题");
+			return ;
+		}
+		$.ajax({
+			url:"${pageContext.request.contextPath}/stu_addNote.action",
+			type:"post",
+			data:{
+				"sectionId":sectionId,
+				"note.title":title,
+				"note.content":content
+			},
+			dataType:"json",
+			success:function(data){
+				if(data.success){
+					alert("笔记做好了，可以在个人中心里查看");
+					$("#modal-demo-add-note").modal("hide");
+					var title = $("#note_theme").val("");
+					var content = $("#note_content").val("");
+				}else{
+					alert("添加失败");
+				}
+			}
+		})
+	}
 
 	function show(){
 		$("#modal-demo").modal("show")

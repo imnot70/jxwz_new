@@ -1,5 +1,6 @@
 package com.jxwz.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,14 @@ import com.jxwz.entity.Chapter;
 import com.jxwz.entity.Knowledge;
 import com.jxwz.entity.Post;
 import com.jxwz.entity.Section;
+import com.jxwz.entity.Video;
 import com.jxwz.service.AnnouncementService;
 import com.jxwz.service.ChapterService;
 import com.jxwz.service.KnowledgeService;
 import com.jxwz.service.PostService;
 import com.jxwz.service.SectionService;
+import com.jxwz.service.VideoService;
+import com.jxwz.util.Constants;
 
 public class HomePageAction extends BaseAction {
 
@@ -33,9 +37,12 @@ public class HomePageAction extends BaseAction {
 	private PostService postService;
 	@Autowired
 	private KnowledgeService knowledgeService;
+	@Autowired
+	private VideoService videoService;
 
 	private Long chapterId;
 	private Long sectionId;
+	private boolean fromCenter;
 
 	// 主页
 	public String toHome() {
@@ -71,7 +78,17 @@ public class HomePageAction extends BaseAction {
 		pageNum = pageNum <= 0 ? 1 : pageNum;
 		int startNum = (pageNum - 1) * pageSize;
 
-		List<Knowledge> knowledges = knowledgeService.findBysectionId(secId, startNum, pageSize);
+		List<Knowledge> tempList = knowledgeService.findBysectionId(secId, startNum, pageSize);
+		List<Knowledge> knowledges = new ArrayList<Knowledge>();
+		if (tempList != null && tempList.size() != 0) {
+			for (Knowledge temp : tempList) {
+				Knowledge k = new Knowledge();
+				k.setId(temp.getId());
+				k.setUrl(Constants.URL_FREFIX + temp.getUrl());
+				k.setTitle(temp.getTitle());
+				knowledges.add(k);
+			}
+		}
 		int totalCount = knowledgeService.countBySectionId(secId);
 		super.setAttr("knows", knowledges);
 		super.setAttr("totalCount", totalCount);
@@ -116,22 +133,30 @@ public class HomePageAction extends BaseAction {
 		return "videoList";
 	}
 
+	// 节视频列表
+	public String toVideoPage() {
+		logger.info("toVideoPage,sectionId:" + sectionId);
+		int pageNum = getPageNum() <= 0 ? 1 : getPageNum();
+		int pageSize = getPageSize() <= 0 ? 10 : getPageSize();
+		int startNum = (pageNum - 1) * pageSize;
+		List<Video> videoList = videoService.findWithPage(sectionId, startNum, pageSize);
+		int totalCount = videoService.queryCountBySec(sectionId);
+		setAttr("videoList", videoList);
+		setAttr("totalCount", totalCount);
+		return "videoPage";
+	}
+
 	// 到发帖
 	public String toDiscuz() {
 		logger.info("toDiscuz");
 		int startNum = ((getPageNum() <= 0 ? 1 : getPageNum()) - 1) * getPageSize();
-
-		/*
-		 * System.out.println(getPageNum()); System.out.println(startNum);
-		 * System.out.println(getPageSize());
-		 */
-
 		List<Post> posts = postService.getPostWithPage(startNum, getPageSize());
 		super.setAttr("posts", posts);
 
 		int totalCount = postService.queryCount();
 		super.setSession("totalCountPost", totalCount);
 		super.setAttr("pageNum", getPageNum());
+		super.setAttr("fromCenter", fromCenter);
 
 		return "toDiscuz";
 	}
@@ -159,6 +184,14 @@ public class HomePageAction extends BaseAction {
 
 	public void setSectionId(Long sectionId) {
 		this.sectionId = sectionId;
+	}
+
+	public boolean isFromCenter() {
+		return fromCenter;
+	}
+
+	public void setFromCenter(boolean fromCenter) {
+		this.fromCenter = fromCenter;
 	}
 
 }

@@ -10,6 +10,7 @@
 			<result name="toKonwledges">/WEB-INF/frontPage/HomePage/knows.jsp</result>
 			<result name="toTest">/WEB-INF/frontPage/Test/test_page.jsp</result>
 			<result name="videoList">/WEB-INF/frontPage/Video/video_page.jsp</result>
+			<result name="videoPage">/WEB-INF/frontPage/Video/videos.jsp</result>
 			<result name="toWords">/WEB-INF/frontPage/Words/words_page.jsp</result>
 			<result name="toDiscuz">/WEB-INF/frontPage/Discuz/discuz_page.jsp</result>
 		</action>

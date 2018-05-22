@@ -10,4 +10,8 @@ public interface VideoService extends BaseService<Video> {
 
 	List<Video> findWithPage(int startNum, int pageSize);
 
+	List<Video> findWithPage(Long sectionId, int startNum, int pageSize);
+
+	int queryCountBySec(Long sectionId);
+
 }

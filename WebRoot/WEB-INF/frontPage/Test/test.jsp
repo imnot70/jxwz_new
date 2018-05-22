@@ -95,8 +95,9 @@ $("#submitBtn").bind("click",function(){
 		answer += inputs.eq(i).val();
 		answer += ",";
 		answer += $("input[name='"+"op"+i+"']:checked").val();
+		answer += ",";
 	}
-	
+	answer = answer.substring(0,answer.length-1);
 	getResule(answer);
 })
 
@@ -113,11 +114,9 @@ function getResule(answer){
 			if(!data.result){
 				alert("系统异常")
 			}else{
-				var point = 100;
 				if(data.result != null && data.result.length != 0){
 					$(data.result).each(function(idx,obj){
 						$("#submitBtn").css("display","none");
-						point -= 20;
 						var target = $("input[value='"+obj.queId+"']");
 						target.parent().attr("class","Huialert Huialert-danger");
 						var content = "答案："+ obj.code+"，分析："+obj.remark;
@@ -126,7 +125,6 @@ function getResule(answer){
 						tip.css("display","block");
 					})
 				}
-				$("#point").html("得分："+point);
 				$(".errQue").css("display","inline-block");
 			}
 		}
@@ -134,7 +132,20 @@ function getResule(answer){
 }
 
 function addIncr(id){
-	alert(id);
+	$.ajax({
+		url:"${pageContext.request.contextPath}/test_addIncorrect.action",
+		type:"post",
+		data:{
+			"questionId":id
+		},
+		dataType:"json",
+		success:function(data){
+			alert(data.msg);
+			if(data.error == 2){
+				window.location.reload();
+			}
+		}
+	})
 }
 
 </script>

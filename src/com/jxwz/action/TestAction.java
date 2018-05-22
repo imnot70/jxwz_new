@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSONObject;
@@ -77,14 +78,16 @@ public class TestAction extends BaseAction {
 	public void addIncorrect() {
 		JSONObject obj = new JSONObject();
 		Question q = questionService.findById(questionId);
-		User user = userService.findById(userId);
+		User user = (User) ServletActionContext.getRequest().getSession().getAttribute("user");
 		if (user == null) {
 			obj.put("error", 0);
 			obj.put("msg", "请登录后再添加");
-			obj.put("queId", questionId);
-			super.executeAjaxString(obj.toJSONString());
+			executeAjax(obj);
 		}
+		
+		user = userService.findById(user.getId());
 
+		// 加入重复判断
 		if (user.getIncrrects().contains(q)) {
 			obj.put("error", 1);
 			obj.put("msg", "已添加过该问题");
@@ -94,43 +97,42 @@ public class TestAction extends BaseAction {
 			obj.put("error", 2);
 			obj.put("msg", "添加成功");
 		}
-		super.executeAjaxString(obj.toJSONString());
+		executeAjax(obj);
 	}
 
 	// 获取测试结果
 	public void getResult() {
 		JSONObject obj = new JSONObject();
-		if(resultStr == null || resultStr.length() == 0) {
+		if (resultStr == null || resultStr.length() == 0) {
 			logger.info("resultStr is null or length is 0,return");
 			obj.put("success", false);
 			executeAjax(obj);
-			return ;
+			return;
 		}
 		String[] strs = resultStr.split(",");
 		List<TestResult> resultList = new ArrayList<TestResult>();
-		for(int i=0;i<resultStr.length();i++) {
+		for (int i = 0; i < strs.length-1; i++) {
 			Long id = Long.valueOf(strs[i]);
 			i++;
 			String code = strs[i];
 			
 			Question q = questionService.findById(id);
-			if(q == null) {
+			if (q == null) {
 				continue;
 			}
-			if(!code.equals(q.getAnswerCode())) {
+			if (!code.equals(q.getAnswerCode())) {
 				TestResult tr = new TestResult();
 				tr.setCode(q.getAnswerCode());
 				tr.setQueId(q.getId());
 				tr.setRemark(q.getRemark());
 				resultList.add(tr);
 			}
-			
 		}
 		obj.put("result", resultList);
 		obj.put("success", true);
 		executeAjax(obj);
 	}
-	
+
 	public Long getChapterId() {
 		return chapterId;
 	}

@@ -40,7 +40,7 @@
 </head>
 <body>
 	<div class="panel-header">
-		<button onclick="addChapter(1,1,null,null)" class="btn btn-primary radius">增加</button>
+		<button onclick="addChapter(1,1,null,null)" class="btn btn-primary radius">增加章</button>
 	</div>
 	<div id="containerCha" class="panel-body">
 		<c:forEach items="${chapters }" var="item" varStatus="vs">

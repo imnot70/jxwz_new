@@ -15,4 +15,9 @@ public interface QuestionService extends BaseService<Question> {
 	
 	List<Question> findQuestion(Long sectionId);
 	
+	List<Question> findByUserId(Long userId,int startNum,int pageSize);
+	
+	int queryCountByUserId(Long userId);
+
+	void deleteUserIncor(Long userId, Long queId);
 }

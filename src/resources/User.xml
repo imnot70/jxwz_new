@@ -10,5 +10,15 @@
 			<result name="userHome">/WEB-INF/frontPage/User/user_home.jsp</result>
 		</action>
 	</package>
+	
+	<package name="stu" namespace="/" extends="struts-default">
+		<action name="stu_*" class="com.jxwz.action.StudentAction" method="{1}">
+		</action>
+	</package>
+	
+	<package name="tea" namespace="/" extends="struts-default">
+		<action name="tea_*" class="com.jxwz.action.TeacherAction" method="{1}">
+		</action>
+	</package>
 
 </struts>

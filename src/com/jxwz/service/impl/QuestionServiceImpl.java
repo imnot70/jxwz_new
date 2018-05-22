@@ -40,4 +40,19 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.findTest(sectionId);
 	}
 
+	@Override
+	public List<Question> findByUserId(Long userId, int startNum, int pageSize) {
+		return questionDao.findByUserId(userId,startNum,pageSize);
+	}
+
+	@Override
+	public int queryCountByUserId(Long userId) {
+		return questionDao.queryCountByUserId(userId);
+	}
+
+	@Override
+	public void deleteUserIncor(Long userId, Long queId) {
+		questionDao.deleteUserIncor(userId,queId);
+	}
+
 }

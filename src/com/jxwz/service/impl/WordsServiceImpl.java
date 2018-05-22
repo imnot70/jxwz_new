@@ -35,4 +35,14 @@ public class WordsServiceImpl implements WordsService {
 		return wordsDao.findById(id);
 	}
 
+	@Override
+	public int queryCountByUser(Long id) {
+		return wordsDao.queryCountByUser(id);
+	}
+
+	@Override
+	public List<Words> findByUserId(Long userId, int startNum, int pageSize) {
+		return wordsDao.findByUserId(userId, startNum, pageSize);
+	}
+
 }

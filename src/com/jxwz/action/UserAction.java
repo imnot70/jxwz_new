@@ -1,6 +1,7 @@
 package com.jxwz.action;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +12,20 @@ import org.springframework.web.bind.ServletRequestUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jxwz.entity.Chapter;
+import com.jxwz.entity.Post;
 import com.jxwz.entity.Section;
 import com.jxwz.entity.User;
 import com.jxwz.service.AnnouncementService;
 import com.jxwz.service.ChapterService;
 import com.jxwz.service.DocumentService;
 import com.jxwz.service.KnowledgeService;
+import com.jxwz.service.NoteService;
+import com.jxwz.service.PostService;
+import com.jxwz.service.QuestionService;
 import com.jxwz.service.SectionService;
 import com.jxwz.service.UserService;
 import com.jxwz.service.VideoService;
+import com.jxwz.service.WordsService;
 import com.jxwz.util.Constants;
 import com.jxwz.util.EmailUtils;
 import com.jxwz.util.Utils;
@@ -41,7 +47,15 @@ public class UserAction extends BaseAction {
 	private VideoService videoService;
 	@Autowired
 	private DocumentService documentService;
-
+	@Autowired
+	private QuestionService questionService;
+	@Autowired
+	private NoteService noteService;
+	@Autowired
+	private WordsService wordsService;
+	@Autowired
+	private PostService postService;
+	
 	private String result;
 	private InputStream inputStream;
 	private User user;
@@ -52,12 +66,12 @@ public class UserAction extends BaseAction {
 	private String dest;
 
 	public void importUser() {
-		
+
 	}
 
 	public void saveUser() {
 		logger.info("saveUser,tId:" + teacherId);
-		if (user.getUserType() == 1) {
+		if (user.getUserType() == 1 && teacherId != null && teacherId != 0) {
 			User teacher = userService.findById(teacherId);
 			user.setTeacher(teacher);
 		}
@@ -80,7 +94,19 @@ public class UserAction extends BaseAction {
 			int startNum = (pageNum - 1) * pageSize;
 
 			List<User> userList = userService.findByTypeWithPage(type, startNum, pageSize);
-			obj.put("users", userList);
+			List<User> resultList = new ArrayList<User>();
+			if (userList != null && userList.size() != 0) {
+				for (User temp : userList) {
+					User u = new User();
+					u.setName(temp.getName());
+					u.setId(temp.getId());
+					u.setGender(temp.getGender());
+					u.setUserCode(temp.getUserCode());
+					resultList.add(u);
+				}
+			}
+
+			obj.put("users", resultList);
 			int totalCount = userService.countByType(type);
 			obj.put("totalCount", totalCount);
 			executeAjax(obj);
@@ -187,34 +213,55 @@ public class UserAction extends BaseAction {
 
 	public String center() {
 		logger.info("center");
-		
-		logger.info("center,dest:"+dest);
-		super.setSession("dest", dest);
-		
+
 		List<Chapter> chapters = chapterService.findAll();
-		// 查询学生,老师,公告,视频,资料,知识点总数,用于页面分页
-		int totalCountStu = userService.countByType(Constants.USER_TYPE_STUDENT);
-		int totalCountTea = userService.countByType(Constants.USER_TYPE_TEACHER);
-		int totalCountAnno = announcementService.queryCount();
-		int totalCountKnow = knowledgeService.queryCount();
-		int totalCountVideo= videoService.queryCount();
-		int totalCountDoc = documentService.queryCount();
 		
-		super.setSession("totalCountStu",totalCountStu);
-		super.setSession("totalCountTea",totalCountTea);
-		super.setSession("totalCountAnno",totalCountAnno);
-		super.setSession("totalCountknow",totalCountKnow);
-		super.setSession("totalCountVideo",totalCountVideo);
-		super.setSession("totalCountDoc",totalCountDoc);
 		
-		if(chapters != null && chapters.size() != 0) {
-			for(Chapter c:chapters) {
+		User user = (User) ServletActionContext.getRequest().getSession().getAttribute("user");
+		if(user != null) {
+			if(user.getUserType() == 0) {
+				// 查询学生,老师,公告,视频,资料,知识点总数,用于页面分页
+				int totalCountStu = userService.countByType(Constants.USER_TYPE_STUDENT);
+				int totalCountTea = userService.countByType(Constants.USER_TYPE_TEACHER);
+				int totalCountAnno = announcementService.queryCount();
+				int totalCountKnow = knowledgeService.queryCount();
+				int totalCountVideo = videoService.queryCount();
+				
+				super.setSession("totalCountStu", totalCountStu);
+				super.setSession("totalCountTea", totalCountTea);
+				super.setSession("totalCountAnno", totalCountAnno);
+				super.setSession("totalCountknow", totalCountKnow);
+				super.setSession("totalCountVideo", totalCountVideo);
+			}
+			
+			if(user.getUserType() == 1) {
+				// 学生错题数,笔记数,留言数
+				int totalCountIncors = questionService.queryCountByUserId(user.getId());
+				int totalCountNotes = noteService.queryCountByUser(user.getId());
+				int totalCountWords = wordsService.queryCountByUser(user.getId());
+				int totalCountPostStu = postService.queryCountByUser(user.getId());
+				int totalCountDocStu = documentService.queryCountByUser(user.getId());
+				super.setSession("totalCountIncor", totalCountIncors);
+				super.setSession("totalCountNote", totalCountNotes);
+				super.setSession("totalCountWords", totalCountWords);
+				super.setSession("totalCountPostStu", totalCountPostStu);
+				super.setSession("totalCountDocStu", totalCountDocStu);
+			}
+			if(user.getUserType() == 2) {
+				// 老师文档数,问题数,被留言数
+				
+			}
+
+		}
+		
+		if (chapters != null && chapters.size() != 0) {
+			for (Chapter c : chapters) {
 				List<Section> secs = sectionService.findSectionsByChapterId(c.getId());
 				c.setSections(secs);
 			}
 		}
-		super.setAttr("chapters",chapters);
-		
+		super.setAttr("chapters", chapters);
+
 		return "userHome";
 	}
 
@@ -245,12 +292,23 @@ public class UserAction extends BaseAction {
 		logger.info("delUser,userId:" + userId);
 		boolean res = userService.deleteById(userId);
 		JSONObject obj = new JSONObject();
-		
+
 		if (res) {
 			obj.put("success", true);
 		} else {
 			obj.put("success", false);
 		}
+		executeAjax(obj);
+	}
+	
+	public void myPost() {
+		int pageNum = getPageNum() <= 0?1 :getPageNum();
+		int pageSize = getPageSize() <=0 ? 10 : getPageSize();
+		int startNum = (pageNum - 1)* pageSize;
+		JSONObject obj = new JSONObject();
+		Long userId = (Long) ServletActionContext.getRequest().getSession().getAttribute("userId");
+		List<Post> posts = postService.findByUser(userId,startNum,pageSize);
+		obj.put("posts",posts);
 		executeAjax(obj);
 	}
 

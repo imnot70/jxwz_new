@@ -12,7 +12,7 @@ public class Section extends BaseEntity {
 	// private List<Document> documents;
 	private Set<Video> videos;
 	private Set<Question> ques;
-	private Set<Knowledge> knows;
+//	private Set<Knowledge> knows;
 
 	public int getSort() {
 		return sort;
@@ -70,13 +70,13 @@ public class Section extends BaseEntity {
 		this.ques = ques;
 	}
 
-	public Set<Knowledge> getKnows() {
+	/*public Set<Knowledge> getKnows() {
 		return knows;
 	}
 
 	public void setKnows(Set<Knowledge> knows) {
 		this.knows = knows;
-	}
+	}*/
 
 	/*
 	 * public List<Document> getDocuments() { return documents; }

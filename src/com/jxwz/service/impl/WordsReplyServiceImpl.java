@@ -35,4 +35,9 @@ public class WordsReplyServiceImpl implements WordsReplyService {
 		return wordsReplyDao.findById(id);
 	}
 
+	@Override
+	public WordsReply findByWrodsId(Long wordsId) {
+		return wordsReplyDao.findByWrodsId(wordsId);
+	}
+
 }

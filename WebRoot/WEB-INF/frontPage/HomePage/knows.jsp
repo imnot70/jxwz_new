@@ -18,9 +18,9 @@
 }
 
 .sub_li{
-	font-size: 1.25rem;
-	width: 60%;
-	margin-left: 20%;
+	font-size: 1rem;
+	width: 50%;
+	margin-left: 25%;
 	list-style-type: none;
 	cursor:pointer;
 }
@@ -43,13 +43,13 @@
 			</nav>
 			<div class="container ui-sortable">
 				<div class="panel panel-default">
-					<div class="panel-header">章节列表</div>
+					<div class="panel-header">知识点列表</div>
 					<div class="panel-body" style="min-height: 720px;">
 						<%-- <c:forEach items="${chapters }" var="item" varStatus="vs">
 							<li class="Huialert Huialert-success doc_li">${item.title}</li>
 						</c:forEach> --%>
 						<c:forEach items="${knows}" var="item" varStatus="vs">
-							<li class="Huialert Huialert-info sub_li" onclick="showDetail('${item.id}')">${item.title}</li>
+							<li class="Huialert Huialert-info sub_li" onclick="showDetail('${item.url}')">${item.title}</li>
 						</c:forEach>
 					</div>
 				</div>
@@ -57,19 +57,13 @@
 			</div>
 
 			<jsp:include page="../modules/left_annos.jsp"></jsp:include>
-
-			<footer class="footer mt-20">
-				<div class="container">
-					<p>《编译原理》教程网站 作者：萌萌哒孙国冉</p>
-				</div>
-			</footer>
+			<jsp:include page="../modules/footer.jsp"></jsp:include>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-function showDetail(knowId){
-	alert(knowId)
+function showDetail(url){
+	window.open(url);
 }
 </script>
 </html>
-<!--H-ui前端框架提供前端技术支持 h-ui.net @2017-01-01 -->

@@ -20,15 +20,15 @@
 .doc_li {
 	font-size: 1.25rem;
 	list-style-type: none;
-	width: 75%;
-	margin-left: 12.5%;
+	width: 50%;
+	margin-left: 25%;
 	cursor: pointer;
 }
 
 .sub_li{
 	font-size: 1rem;
-	width: 60%;
-	margin-left: 20%;
+	width: 40%;
+	margin-left: 30%;
 	list-style-type: none;
 	cursor:pointer;
 }
@@ -57,17 +57,22 @@
 							<details >
 								<summary class="Huialert Huialert-success doc_li">${item.title }</summary>
 								<c:forEach items="${item.sections }" var="subItem">
-									<li class="Huialert Huialert-info sub_li" onclick="toDocList('${subItem.id}')">${subItem.title }&nbsp;&nbsp;&nbsp;&nbsp;${subItem.subTitle}</li>
+									<li class="Huialert Huialert-info sub_li">
+										<span onclick="toDocList('${subItem.id}')">${subItem.title }&nbsp;&nbsp;&nbsp;&nbsp;${subItem.subTitle}</span>
+										<c:if test="${user != null && user.userType == 1 }">
+											<button class="btn btn-primary radius size-S" style="float:right;" onclick="addNote(${subItem.id})">做笔记</button>
+										</c:if>
+									</li>
 								</c:forEach>
 							</details>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
-			<form action="${pageContext.request.contextPath }/doc_uploadDoc.action" method="post" enctype="multipart/form-data">
+			<%-- <form action="${pageContext.request.contextPath }/doc_uploadDoc.action" method="post" enctype="multipart/form-data">
 				<input name="myfile" type="file"/>
 				<input value="上传" type="submit"/>
-			</form>
+			</form> --%>
 
 			<jsp:include page="../modules/left_annos.jsp"></jsp:include>
 			<jsp:include page="../modules/footer.jsp"></jsp:include>

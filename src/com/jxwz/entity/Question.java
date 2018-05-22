@@ -9,6 +9,7 @@ public class Question extends BaseEntity {
 	private String answerCode;
 	private String remark;
 	private Section section;
+	private User teacher;
 	private Set<Option> options;
 	private Set<User> stus;
 
@@ -50,6 +51,14 @@ public class Question extends BaseEntity {
 
 	public void setSection(Section section) {
 		this.section = section;
+	}
+
+	public User getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(User teacher) {
+		this.teacher = teacher;
 	}
 
 	public Set<Option> getOptions() {

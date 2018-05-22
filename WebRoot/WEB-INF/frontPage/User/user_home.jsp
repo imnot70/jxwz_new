@@ -36,27 +36,43 @@
 			<div class="container">
 				<div class="panel panel-default">
 					<div class="panel-body" style="min-height: 720px;">
-						<c:if test="${userType == 1 }">
-							<div id="tab_demo" class="HuiTab">
+						<div id="tab_demo" class="HuiTab">
+							<c:if test="${userType == 1 }">
 								<div class="tabBar clearfix">
-									<span class="tabSpan" id="stu1">错题收集</span>
-									<span class="tabSpan" id="stu2">学习笔记</span>
+									<span class="tabSpan" id="stu1">错题收集</span> 
+									<span class="tabSpan" id="stu2">学习笔记</span> 
 									<span class="tabSpan" id="stu3">我要提问</span>
+									<span class="tabSpan" id="stu4">我的帖子</span>
+									<span class="tabSpan" id="stu5">电子教案</span>
+									<span class="tabSpan" id="stu6">我的信息</span>
 								</div>
-								<div class="tabCon" id="stuDiv1">错题</div>
-								<div class="tabCon" id="stuDiv2">笔记</div>
-								<div class="tabCon" id="stuDiv3">提问</div>
-							</div>
-						</c:if>
+								<div class="tabCon" id="stuDiv1">
+									<jsp:include page="./student/incor.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv2">
+									<jsp:include page="./student/note.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv3">
+									<jsp:include page="./student/words.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv4">
+									<jsp:include page="./student/post.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv5">
+									<jsp:include page="./student/doc.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv6">
+									<jsp:include page="./student/info.jsp"></jsp:include>
+								</div>
+							</c:if>
 
-						<c:if test="${userType == 0 }">
-							<div id="tab_demo" class="HuiTab">
+							<c:if test="${userType == 0 }">
 								<div class="tabBar clearfix">
-									<span class="tabSpan" id="admin1">学生管理</span>
-									<span class="tabSpan" id="admin2">教师管理</span>
-									<span class="tabSpan" id="admin3">资料管理</span>
+									<span class="tabSpan" id="admin1">学生管理</span> 
+									<span class="tabSpan" id="admin2">教师管理</span> 
+									<span class="tabSpan" id="admin3">资料管理</span> 
 									<span class="tabSpan" id="admin4">视频管理</span>
-									<span class="tabSpan" id="admin5">章节管理</span>
+									<span class="tabSpan" id="admin5">章节管理</span> 
 									<span class="tabSpan" id="admin6">公告管理</span>
 								</div>
 								<div class="tabCon" id="adminDiv1">
@@ -77,21 +93,29 @@
 								<div class="tabCon" id="adminDiv6">
 									<jsp:include page="./admin/annoMana.jsp"></jsp:include>
 								</div>
-							</div>
-						</c:if>
+							</c:if>
 
-						<c:if test="${userType == 2 }">
-							<div id="tab_demo" class="HuiTab">
+							<c:if test="${userType == 2 }">
 								<div class="tabBar clearfix">
-									<span class="tabSpan" id="tea1">文档管理</span>
+									<span class="tabSpan" id="tea1">文档管理</span> 
 									<span class="tabSpan" id="tea2">习题管理</span>
 									<span class="tabSpan" id="tea3">答疑解惑</span>
+									<span class="tabSpan" id="tea4">我的信息</span>
 								</div>
-								<div class="tabCon" id="teaDiv1">学生管理</div>
-								<div class="tabCon" id="teaDiv2">教师管理</div>
-								<div class="tabCon" id="teaDiv3">资料管理</div>
-							</div>
-						</c:if>
+								<div class="tabCon" id="stuDiv1">
+									<jsp:include page="./teacher/doc.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv2">
+									<jsp:include page="./teacher/test.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv3">
+									<jsp:include page="./teacher/words.jsp"></jsp:include>
+								</div>
+								<div class="tabCon" id="stuDiv4">
+									<jsp:include page="./teacher/info.jsp"></jsp:include>
+								</div>
+							</c:if>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -101,50 +125,61 @@
 	</div>
 </body>
 <script type="text/javascript">
-
 	$(function() {
-		var tabId = sessionStorage.getItem("tableId");
+		var tabId = localStorage.getItem("tableId");
 		var tabIndex = 0;
-		switch(tabId){
-			case "0":
-				tabIndex = 0;
-				break;
-			case "stu1":
-				tabIndex = 0;
-				break;
-			case "stu2":
-				tabIndex = 1;
-				break;
-			case "stu3":
-				tabIndex = 2;
-				break;
-			case "admin1":
-				tabIndex = 0;
-				break;
-			case "admin2":
-				tabIndex = 1;
-				break;
-			case "admin3":
-				tabIndex = 2;
-				break;
-			case "admin4":
-				tabIndex = 3;
-				break;
-			case "admin5":
-				tabIndex = 4;
-				break;
-			case "admin6":
-				tabIndex = 5;
-				break;
-			case "tea1":
-				tabIndex = 0;
-				break;
-			case "tea2":
-				tabIndex = 1;
-				break;
-			case "tea3":
-				tabIndex = 2;
-				break;
+		switch (tabId) {
+		case "0":
+			tabIndex = 0;
+			break;
+		case "stu1":
+			tabIndex = 0;
+			break;
+		case "stu2":
+			tabIndex = 1;
+			break;
+		case "stu3":
+			tabIndex = 2;
+			break;
+		case "stu4":
+			tabIndex = 3;
+			break;
+		case "stu5":
+			tabIndex = 4;
+			break;
+		case "stu6":
+			tabIndex = 5;
+			break;
+		case "admin1":
+			tabIndex = 0;
+			break;
+		case "admin2":
+			tabIndex = 1;
+			break;
+		case "admin3":
+			tabIndex = 2;
+			break;
+		case "admin4":
+			tabIndex = 3;
+			break;
+		case "admin5":
+			tabIndex = 4;
+			break;
+		case "admin6":
+			tabIndex = 5;
+			break;
+		case "tea1":
+			tabIndex = 0;
+			break;
+		case "tea2":
+			tabIndex = 1;
+			break;
+		case "tea3":
+			tabIndex = 2;
+			break;
+		case "tea4":
+			tabIndex = 3;
+			break;
 		}
 		$.Huitab("#tab_demo .tabBar span", "#tab_demo .tabCon", "current", "click", tabIndex);
 	});
@@ -165,39 +200,11 @@
 			$(tabCon).eq(index).show()
 		})
 	}
-	
-	/* $(function(){
-		var tab = $(".selectedTab");
-		var id = tab.attr("id");
-		queryData(id);
-	}) */
-	
-	$("span").on("click",function(){
+
+	$("span").on("click", function() {
 		var id = $(this).attr("id");
-		sessionStorage.setItem("tableId",id);
+		localStorage.setItem("tableId", id);
 		//queryData(id);
 	})
-	
-	
-	/* function queryData(id){
-		if(id == "admin1"){
-			//callBackStu(1);
-			pageHelper(callBackStu);
-		}
-		if(id == "admin2"){
-			//callBackTea(1);
-			pageHelper(callBackTea);
-		}
-		if(id == "admin3"){
-			
-		}
-		if(id == "admin4"){
-			
-		}
-		if(id == "admin5"){
-			
-		}
-	} */
-	
 </script>
 </html>

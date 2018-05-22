@@ -148,6 +148,24 @@
 		var teacherId = $("#stu-add-teacher").val();
 		var code = $("#user-userCode").val();
 		var type=$("#stu-userType").val();
+		
+		if(name == null|| ""== name || typeof(name) == "undefined"){
+			alert("请填写姓名");
+			return ;
+		}
+		if(gender == null|| ""== gender || typeof(gender) == "undefined"){
+			alert("请选择性别");
+			return ;
+		}
+		if(teacherId == null|| ""== teacherId || typeof(teacherId) == "undefined"){
+			alert("请选择老师");
+			return;
+		}
+		if(code == null|| ""== code || typeof(code) == "undefined"){
+			alert("请填写编号");
+			return;
+		}
+		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/user_saveUser.action",
 			type:"post",
@@ -195,8 +213,8 @@
 					op.html(obj.name);
 					container.append(op);
 
-					$("#modal-demo-add-stu").modal("show");
 				})
+				$("#modal-demo-add-stu").modal("show");
 			}
 		})
 	}

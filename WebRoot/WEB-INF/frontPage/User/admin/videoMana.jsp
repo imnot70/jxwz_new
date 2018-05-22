@@ -71,9 +71,9 @@
 								<label class="form-label col-xs-3">选择文件：</label>
 								<div class="formControls col-xs-8">
 									<span class="btn-upload form-group">
-										<input class="input-text upload-url" type="text" name="uploadfile-2" id="knowFileInput" readonly="" style="width:200px">
+										<input class="input-text upload-url" type="text" name="video" readonly="readonly" style="width:200px">
 										<a href="javascript:void();" class="btn btn-primary upload-btn"><i class="Hui-iconfont"></i> 浏览文件</a>
-										<!-- <input id="knowFileInput" type="file" name="know" class="input-file"> -->
+										<input id="videoFileInput" type="file" name="video" class="input-file" accept=".mp4">
 									</span>
 								</div>
 							</div>
@@ -158,7 +158,10 @@
 		td4.html(obj.name);
 		tr.append(td4);
 		var td5 = $("<td style='text-align:center;width:30%;'></td>");
-		var btn1 = createBtn("删除", "delVideo(this)", "btn btn-danger radius");
+		
+		var btn2 = createBtn("预览", "check('"+obj.url+"')", "btn btn-primary radius");
+		td5.append(btn2);
+		var btn1 = createBtn("删除", "delVideo("+obj.id+")", "btn btn-danger radius");
 		td5.append(btn1);
 		tr.append(td5);
 		return tr;
@@ -173,6 +176,56 @@
 	function findVideoSections(){
 		var container = $("#video-add-sec");
 		findSections(container); // 此函数在knowMana.jsp
+	}
+	
+	function uploadVideo() {
+		var secId = $("#video-add-sec").val();
+		
+        var path = document.getElementById("videoFileInput").value;
+        if ($.trim(path) == "") { alert("请选择要上传的文件"); return; }
+
+        $.ajaxFileUpload({
+            url: '${pageContext.request.contextPath}/doc_uploadVideo.action',  //这里是服务器处理的代码
+            type: 'post',
+            //secureuri: false, //一般设置为false
+            fileElementId: 'videoFileInput', // 上传文件的id、name属性名
+            dataType: 'json', //返回值类型，一般设置为json、application/json
+            data: {
+            	"secId":secId
+            }, //传递参数到服务器
+            success: function (data) {
+            	if(data.success){
+            		alert("上传成功");
+            		window.location.reload();
+            	}else{
+            		alert(data.msg);
+            	}
+            }
+        });
+    }
+	
+	function delVideo(id){
+		var res = confirm("确定要删除吗？");
+		if(!res){
+			return false;
+		}
+		
+		$.ajax({
+			url:"${pageContext.request.contextPath}/doc_delVideo.action",
+			type:"post",
+			data:{
+				"videoId":id
+			},
+			dataType:"json",
+			success:function(data){
+				if(data.success){
+					alert("操作成功");
+					window.location.reload();
+				}else{
+					alert("操作失败");
+				}
+			}
+		})
 	}
 	
 </script>

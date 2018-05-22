@@ -45,4 +45,14 @@ public class VideoServiceImpl implements VideoService {
 		return videoDao.findWithPage(startNum,pageSize);
 	}
 
+	@Override
+	public List<Video> findWithPage(Long sectionId, int startNum, int pageSize) {
+		return videoDao.findWithPage(sectionId, startNum, pageSize);
+	}
+
+	@Override
+	public int queryCountBySec(Long sectionId) {
+		return videoDao.queryCountBySec(sectionId);
+	}
+
 }

@@ -18,6 +18,7 @@
         <property name="createDateStr" column="create_date_str"/>  
         
         <property name="content" column="content"/>    
+        <property name="title" column="title"/>    
         <many-to-one name="section" class="com.jxwz.entity.Section" column="section_id" cascade="none" lazy="false"/>
         <many-to-one name="student" class="com.jxwz.entity.User" column="student_id" cascade="none" lazy="false"/>
     </class>    

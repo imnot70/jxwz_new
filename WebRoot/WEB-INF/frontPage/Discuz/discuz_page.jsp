@@ -38,7 +38,7 @@
 <meta name="description" content="网站描述，字数尽量空制在80个汉字，160个字符以内！">
 </head>
 <body>
-
+	<input id="fromCenter" value="${fromCenter }" type="hidden" />
 	<div class="containBox">
 		<jsp:include page="../modules/top_menu.jsp"></jsp:include>
 		<div class="wap-container">
@@ -101,6 +101,13 @@ $(function(){
 function toDocList(secId){
 	window.location.href="${pageContext.request.contextPath}/home_toKonwledges.action?secId="+secId;
 }
+
+$(function(){
+	var from = $("#fromCenter").val();
+	if(from){
+		newPost();
+	}
+})
 
 function newPost(){
 	$.ajax({

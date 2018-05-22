@@ -45,4 +45,14 @@ public class DocumnetServiceImpl implements DocumentService {
 		return documentDao.queryCount();
 	}
 
+	@Override
+	public int queryCountByUser(Long id) {
+		return documentDao.queryCountByUser(id);
+	}
+
+	@Override
+	public List<Document> findByTeacher(Long id, int startNum, int pageSize) {
+		return documentDao.findByTeacher(id,startNum,pageSize);
+	}
+
 }

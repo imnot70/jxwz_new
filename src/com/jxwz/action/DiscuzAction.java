@@ -109,16 +109,16 @@ public class DiscuzAction extends BaseAction {
 			e.printStackTrace();
 		}
 	}
-
-	public String deletePost() {
-		logger.info("deletePost,postId:" + postId);
-		postService.deleteById(postId);
-		return SUCCESS;
-	}
-
-	public String newWords() {
-		return null;
-	}
+	
+//	public String deletePost() {
+//		logger.info("deletePost,postId:" + postId);
+//		postService.deleteById(postId);
+//		return SUCCESS;
+//	}
+//
+//	public String newWords() {
+//		return null;
+//	}
 
 	// setter and getter
 	public Post getPost() {

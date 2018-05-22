@@ -20,15 +20,15 @@
 .doc_li {
 	font-size: 1.25rem;
 	list-style-type: none;
-	width: 75%;
-	margin-left: 12.5%;
+	width: 50%;
+	margin-left: 25%;
 	cursor: pointer;
 }
 
 .sub_li{
 	font-size: 1rem;
-	width: 60%;
-	margin-left: 20%;
+	width: 40%;
+	margin-left: 30%;
 	list-style-type: none;
 	cursor:pointer;
 }
